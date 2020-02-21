@@ -1,4 +1,5 @@
 # ApkAnalyser
+
 一键提取安卓应用中可能存在的敏感信息。
 
 Windows:[releases](https://github.com/TheKingOfDuck/ApkAnalyser/releases/download/1.0/apkAnalyser.zip)
@@ -6,13 +7,11 @@ Windows:[releases](https://github.com/TheKingOfDuck/ApkAnalyser/releases/downloa
 ✔️即兴开发，Enjoy it~~
 
 
-项目地址：https://github.com/TheKingOfDuck/ApkAnalyser
-
 ![](https://blog.gzsec.org/post-images/1582291987982.png)
 
 目前提取了APK内:
 * 所有字符串
-* 所以URLs
+* 所有URLs
 * 所有ip
 * 可能是hash值的字符串
 * 存在的敏感词（如oss.aliyun）
