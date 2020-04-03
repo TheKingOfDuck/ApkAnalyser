@@ -2,6 +2,10 @@
 
 一键提取安卓应用中可能存在的敏感信息。
 
+* 20200304
+  
+  修复“apkPath is not defined”，参数带进来的路径忘记赋值直接写了...
+
 Windows:[releases](https://github.com/TheKingOfDuck/ApkAnalyser/releases/download/1.0/apkAnalyser.zip)
 
 ✔️即兴开发，Enjoy it~~
