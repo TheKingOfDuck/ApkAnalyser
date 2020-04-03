@@ -305,7 +305,7 @@ if __name__ == '__main__':
         for num in range(1,len(sys.argv)):
             print("[?]{}".format(sys.argv[num]))
             if os.path.exists(sys.argv[num]):
-                apkPath = apkPath.replace("\\", "/")
+                apkPath = str(sys.argv[num]).replace("\\", "/")
                 if str(apkPath).endswith(".apk"):
                     if os.path.exists(apkPath):
                         main(apkPath)
