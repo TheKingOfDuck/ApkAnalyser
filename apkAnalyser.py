@@ -291,6 +291,8 @@ if __name__ == '__main__':
 
     if os.path.isdir('result') == False:
         os.mkdir('result')
+    if os.path.isdir('apps') == False:
+        os.mkdir('apps')
 
     banner()
 
