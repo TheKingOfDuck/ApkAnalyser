@@ -20,6 +20,7 @@ import base64
 import datetime
 from apkutils import APK
 import json
+import operator
 
 def banner():
     print(""" 
@@ -120,6 +121,26 @@ def dex2jar(apkPath,savePath):
         # print(e)
         pass
     return False
+
+def do_unique(full_list):
+    # 如果还有误报,将误报的字符串加入下面列表中即可.
+    exclude_str = ["get", "and", "set", "config", "create", "access", "is", "check", "load", "class", "method", "function",
+               "zone", "sha", "des", "aes", "rsa", "dsa", "can", "clear", "long", "task", "thread", "process", "api",
+               "async", "sync", "size", "tag", "uuid", "impl", "int", "parser", "conf", "param", "rate", "audio",
+               "push", "short", "full", "byte", "state", "info", "util", "java", "cert", "sign", "req", "with", "for",
+               "cons", "data", "password", "open", "close", "calc", "code", "track", "group", "time"
+               ]
+    result = []
+
+    for a in range(0, len(full_list)):
+        res = []
+        # print(a, end='\t')
+        for ex in exclude_str:
+            res.append(operator.contains(full_list[a].lower(), ex))
+        if len(set(res)) == 1:
+            print(full_list[a])
+            result.append(full_list[a])
+    return result
 
 def main(apkPath):
 
@@ -256,24 +277,27 @@ def main(apkPath):
                 '''
 
                 if str(string).isalnum():
-                    if re.match(r'^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).{24,24}$', string):
+                    if re.match(r'^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).{24,24}$', string):# or re.match(r'^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).{16,16}$', string):
                         if string not in accessKeyList:
                             accessKeyList.append(string)
-                            ak = open("{}/accessKey.txt".format(savePath), "a")
-                            if string.startswith("LTAI"):
-                                ak.write("=============AccessKeyId================")
-                            ak.write("Id:{}\n".format(str(string)))
-                            ak.close()
 
                     if re.match(r'^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])).{30,30}$', string):
                         if string not in accessKeyList:
                             accessKeyList.append(string)
-                            ak = open("{}/accessKey.txt".format(savePath), "a")
-                            ak.write("Secret:{}\n".format(str(string)))
-                            ak.close()
+                            
         except Exception as e:
             #print(e)
             pass
+        
+        # 提升阿里云AK检测正确率
+        for ak_str in do_unique(accessKeyList):
+            ak = open("{}/accessKey.txt".format(savePath), "a")
+            if ak_str.startswith("LTAI"):
+                ak.write("=============AccessKeyId================\n")
+                ak.write("Id:{}\n".format(str(ak_str)))
+            else:
+                ak.write("Id:{}\n".format(str(ak_str)))
+            ak.close()
 
         print("""[*]Found:
         \tString:{}\tURL:{}
