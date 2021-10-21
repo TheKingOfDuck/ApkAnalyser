@@ -154,9 +154,9 @@ def main(apkPath):
     print("[?]Analyzing {}".format(apkPath))
 
     if "/" in apkPath:
-        savePath = "./result/" + apkPath.split("/")[-1].split(".")[0]
+        savePath = "./result/" + apkPath.split("/")[-1].split(".apk")[0]
     else:
-        savePath = "./result/" + apkPath.split(".")[0]
+        savePath = "./result/" + apkPath.split(".apk")[0]
     try:
         os.mkdir(savePath)
     except Exception as e:
